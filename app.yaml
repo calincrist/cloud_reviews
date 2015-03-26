@@ -2,17 +2,36 @@ application: cloudhotelreviews
 version: 1
 runtime: python27
 api_version: 1
-threadsafe: true
+threadsafe: no
 
 handlers:
-- url: /.*
-  script: main.app
--url: /static
+
+- url: /_ah/mail/.+
+  script: email_handler.py
+  login: admin
+
+- url: /_ah/login_required
+  script: login.py
+
+- url: /static
   static_dir: static
 
+- url: /.*
+  script: main.application
+  login: required
+
+- url: /.*
+  script: main.application
+
+
+inbound_services:
+- mail
+
+
 libraries:
+
 - name: django
-  version: "latest"
+  version: "1.5"
 
 env_variables:
   DJANGO_SETTINGS_MODULE: 'reviews.settings'
