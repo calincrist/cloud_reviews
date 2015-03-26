@@ -13,7 +13,6 @@ providers = {
     'Google': 'https://www.google.com/accounts/o8/id'
 }
 
-
 class MainHandler(webapp.RequestHandler):
     def handle_openid(self, continue_url=None, openid_url=None):
         if openid_url:
